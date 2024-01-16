@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { DeleteRecipe } from "./DeleteRecipe";
 import { UpdateRecipe } from "./UpdateRecipe";
 import { TRecipe } from "@/utils/globalTypes";
+import Link from "next/link";
+import { RecipeDetails } from "./RecipeDetails";
 
 interface IRecipeListProps {
   recipe: TRecipe;
@@ -32,7 +34,7 @@ export const RecipeList: React.FC<IRecipeListProps> = ({ recipe, i }) => {
           ....
         </div>
         <div className="space-x-6 mt-6 lg:mt-0 flex">
-          <Button className="bg-purple-gradient">See Details</Button>
+          <RecipeDetails recipe={recipe} />
           <UpdateRecipe id={recipe?._id} initialData={recipe} />
           <DeleteRecipe id={recipe?._id} />
         </div>

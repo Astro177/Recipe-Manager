@@ -10,11 +10,11 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { useDeleteRecipeMutation } from "@/redux/api/api";
 
-interface DeleteTodoModalProps {
+interface DeleteRecipeProps {
   id: string;
 }
 
-export const DeleteRecipe: React.FC<DeleteTodoModalProps> = ({ id }) => {
+export const DeleteRecipe: React.FC<DeleteRecipeProps> = ({ id }) => {
   const [deleteRecipe] = useDeleteRecipeMutation();
   const handleDelete = () => {
     try {

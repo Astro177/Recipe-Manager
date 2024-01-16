@@ -58,7 +58,7 @@ export const UpdateRecipe: React.FC<TUpdateRecipeProps> = ({
           <FaEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-4xl">
+      <DialogContent className="sm:max-w-[425px] md:max-w-4xl h-screen overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
             Update your recipe
