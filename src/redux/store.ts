@@ -1,11 +1,12 @@
-"use client";
 import { configureStore } from "@reduxjs/toolkit";
-import recipeSlice from "./features/recipe/recipeSlice";
+import recipeReducer from "./features/recipe/recipeSlice";
 import { baseApi } from "./api/api";
 
 export const store = configureStore({
-  [baseApi.reducerPath]: baseApi.reducer,
-  reducer: { recipes: recipeSlice },
+  reducer: {
+    [baseApi.reducerPath]: baseApi.reducer,
+    recipe: recipeReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),
 });

@@ -14,23 +14,42 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
 import { recipeData } from "@/data/recipeData";
+import { TRecipe } from "@/utils/globalTypes";
+import { useUpdateRecipeMutation } from "@/redux/api/api";
 
-export const UpdateRecipe = () => {
-  const [title, setTitle] = useState("");
-  const [ingredients, setIngredients] = useState<string[]>([]);
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+interface TUpdateRecipeProps {
+  id: string;
+  initialData: TRecipe;
+}
+
+export const UpdateRecipe: React.FC<TUpdateRecipeProps> = ({
+  id,
+  initialData,
+}) => {
+  const [title, setTitle] = useState(initialData?.title);
+  const [ingredients, setIngredients] = useState<string[]>(
+    initialData?.ingredients
+  );
+  const [description, setDescription] = useState(initialData?.description);
+  const [image, setImage] = useState(initialData?.image);
+
+  const [updateRecipe] = useUpdateRecipeMutation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const recipeData = {
       title: title,
       description: description,
-      recipes: ingredients,
       image: image,
+      ingredients: ingredients,
     };
-    console.log(recipeData);
-    toast.success("Recipe Added Successfully!");
+    try {
+      const options = { id: id, data: recipeData };
+      updateRecipe(options);
+      toast.success("Recipe Updated Successfully!");
+    } catch (error) {
+      toast.error("Something went wrong! Please try again.");
+    }
   };
   return (
     <Dialog>
@@ -56,6 +75,7 @@ export const UpdateRecipe = () => {
                 id="Recipe Title"
                 type="text"
                 placeholder="Your Recipe Title"
+                defaultValue={initialData?.title}
                 required
                 className="col-span-2"
                 onBlur={(e) => {
@@ -69,6 +89,7 @@ export const UpdateRecipe = () => {
                 id="description"
                 type="text"
                 placeholder="Your Recipe Description"
+                defaultValue={initialData?.description}
                 required
                 className="col-span-2"
                 onBlur={(e) => setDescription(e.target.value)}
@@ -80,19 +101,23 @@ export const UpdateRecipe = () => {
                 id="Image"
                 type="text"
                 placeholder="Your Recipe Image"
+                defaultValue={initialData?.image}
                 className="col-span-2"
                 onBlur={(e) => setImage(e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-4 ">
-              <Label className="text-right mt-10">Recipe Ingredients</Label>
+            <div className="grid grid-cols-4">
+              <Label className="text-right mt-10">Recipe Ingredients:</Label>
             </div>
-            <div className="grid grid-cols-3 mx-auto items-center gap-x-20 gap-y-4 mt-4">
+            <div className="grid grid-cols-3 mx-auto items-center gap-x-20 gap-y-4 mt-2 border p-6 rounded-md">
               {recipeData?.map((item) => (
                 <div key={item?.id} className="flex items-center gap-4">
                   <input
                     type="checkbox"
                     className="size-4"
+                    defaultChecked={initialData?.ingredients?.includes(
+                      item?.label
+                    )}
                     onChange={() => {
                       setIngredients((prevIngredients) => {
                         const isItemInIngredients = prevIngredients.includes(

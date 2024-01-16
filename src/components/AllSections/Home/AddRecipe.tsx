@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import React, { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { recipeData } from "@/data/recipeData";
+import { useAddRecipeMutation } from "@/redux/api/api";
 
 export const AddRecipe = () => {
   const [title, setTitle] = useState("");
@@ -20,16 +21,23 @@ export const AddRecipe = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
+  const [addRecipe] = useAddRecipeMutation();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const id = Math.random().toString(36).substring(2, 15);
     const recipeData = {
       title: title,
       description: description,
-      recipes: ingredients,
       image: image,
+      ingredients: ingredients,
     };
-    console.log(recipeData);
-    toast.success("Recipe Added Successfully!");
+    try {
+      addRecipe(recipeData);
+      toast.success("Recipe Added Successfully!");
+    } catch (error) {
+      toast.error("Something went wrong! Please try again.");
+    }
   };
   return (
     <Dialog>
@@ -82,10 +90,10 @@ export const AddRecipe = () => {
               />
             </div>
 
-            <div className="grid grid-cols-4 ">
-              <Label className="text-right mt-10">Recipe Ingredients</Label>
+            <div className="grid grid-cols-4">
+              <Label className="text-right mt-10">Recipe Ingredients:</Label>
             </div>
-            <div className="grid grid-cols-3 mx-auto items-center gap-x-20 gap-y-4 mt-4">
+            <div className="grid grid-cols-3 mx-auto items-center gap-x-20 gap-y-4 mt-2 border p-6 rounded-md">
               {recipeData?.map((item) => (
                 <div key={item?.id} className="flex items-center gap-4">
                   <input

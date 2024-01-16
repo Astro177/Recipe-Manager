@@ -3,18 +3,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://task-management-server-eight-pied.vercel.app",
+    baseUrl: "http://localhost:5000",
   }),
   tagTypes: ["recipe"],
   endpoints: (builder) => ({
     getRecipes: builder.query({
-      query: (priority) => {
-        const params = new URLSearchParams();
-        if (priority) params.append("priority", priority);
+      query: () => {
         return {
-          url: `/tasks`,
+          url: `/recipes`,
           method: "GET",
-          params: params,
         };
       },
       providesTags: ["recipe"],
@@ -22,7 +19,7 @@ export const baseApi = createApi({
     addRecipe: builder.mutation({
       query: (data) => {
         return {
-          url: "/tasks",
+          url: "/recipes",
           method: "POST",
           body: data,
         };
@@ -32,7 +29,7 @@ export const baseApi = createApi({
     updateRecipe: builder.mutation({
       query: (options) => {
         return {
-          url: `/tasks/${options?.id}`,
+          url: `/recipe/${options?.id}`,
           method: "PUT",
           body: options?.data,
         };
@@ -42,7 +39,7 @@ export const baseApi = createApi({
     deleteRecipe: builder.mutation({
       query: (id) => {
         return {
-          url: `/task/${id}`,
+          url: `/recipe/${id}`,
           method: "DELETE",
         };
       },
