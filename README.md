@@ -1,4 +1,4 @@
-- `Live Link:` https://redux-todo-app-theta.vercel.app/
+- `Live Link:` https://recipe-manager-swart.vercel.app/
 
 ## Description
 
