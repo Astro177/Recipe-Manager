@@ -7,7 +7,9 @@ import { TRecipe } from "@/utils/globalTypes";
 
 export const RecipeContainer = () => {
   const [title, setTitle] = useState("");
-  const { data: recipes } = useGetRecipesQuery(title);
+  const { data: recipes } = useGetRecipesQuery(title, {
+    pollingInterval: 1000,
+  });
 
   return (
     <section className="">
