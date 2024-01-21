@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import React, { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { recipeData } from "@/data/recipeData";
@@ -70,9 +71,8 @@ export const AddRecipe = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right">Recipe Description</Label>
-              <Input
+              <Textarea
                 id="description"
-                type="text"
                 placeholder="Your Recipe Description"
                 required
                 className="col-span-2"

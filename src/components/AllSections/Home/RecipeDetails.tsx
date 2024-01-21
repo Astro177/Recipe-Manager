@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Dialog,
   DialogClose,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { TRecipe } from "@/utils/globalTypes";
-import Image from "next/image";
 
 type TRecipeDetailsProps = {
   recipe: TRecipe;
@@ -32,7 +32,7 @@ export const RecipeDetails: React.FC<TRecipeDetailsProps> = ({ recipe }) => {
         </DialogHeader>
         <div>
           {recipe?.image && (
-            <Image
+            <img
               src={recipe?.image}
               alt={recipe?.title}
               width={700}

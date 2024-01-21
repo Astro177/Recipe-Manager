@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { RecipeList } from "./RecipeList";
 import { useGetRecipesQuery } from "@/redux/api/api";
 import { TRecipe } from "@/utils/globalTypes";
+import { RecipeCard } from "./RecipeCard";
 
 export const RecipeContainer = () => {
   const [title, setTitle] = useState("");
@@ -24,8 +25,8 @@ export const RecipeContainer = () => {
           }}
         />
       </div>
-      <div className="rounded-3xl p-5 bg-primary-gradient h-auto my-10 w-auto lg:w-[1200px]">
-        <div className="h-auto rounded-xl space-y-3">
+      <div className="rounded-xl p-5 bg-primary-gradient h-auto my-10 w-auto grid lg:grid-cols-3 gap-8">
+        {/* <div className="h-auto rounded-xl space-y-3">
           {recipes?.length > 0 ? (
             recipes?.map((recipe: TRecipe, i: number) => (
               <RecipeList key={recipe?._id} recipe={recipe} i={i} />
@@ -35,7 +36,16 @@ export const RecipeContainer = () => {
               <p>There is no recipe right now!</p>
             </div>
           )}
-        </div>
+        </div> */}
+        {recipes?.length > 0 ? (
+          recipes?.map((recipe: TRecipe, i: number) => (
+            <RecipeCard key={i} recipe={recipe} i={i} />
+          ))
+        ) : (
+          <div className="bg-white text-2xl font-bold p-5 text center rounded-xl flex justify-center">
+            <p>There is no recipe right now!</p>
+          </div>
+        )}
       </div>
     </section>
   );
