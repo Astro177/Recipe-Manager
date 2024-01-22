@@ -25,7 +25,7 @@ export const RecipeContainer = () => {
           }}
         />
       </div>
-      <div className="rounded-xl p-5 bg-primary-gradient h-auto my-10 w-auto grid lg:grid-cols-3 gap-8">
+      <div className="rounded-xl p-5 bg-primary-gradient h-auto my-10 w-auto">
         {/* <div className="h-auto rounded-xl space-y-3">
           {recipes?.length > 0 ? (
             recipes?.map((recipe: TRecipe, i: number) => (
@@ -38,9 +38,11 @@ export const RecipeContainer = () => {
           )}
         </div> */}
         {recipes?.length > 0 ? (
-          recipes?.map((recipe: TRecipe, i: number) => (
-            <RecipeCard key={i} recipe={recipe} i={i} />
-          ))
+          <div className="grid lg:grid-cols-3 gap-8">
+            {recipes?.map((recipe: TRecipe, i: number) => (
+              <RecipeCard key={i} recipe={recipe} i={i} />
+            ))}
+          </div>
         ) : (
           <div className="bg-white text-2xl font-bold p-5 text center rounded-xl flex justify-center">
             <p>There is no recipe right now!</p>
